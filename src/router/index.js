@@ -65,6 +65,38 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/strategy',
+        name: 'strategy',
+        redirect: '/strategy/demo1',
+        component: (resolve) => require(['@/view/pages/strategy/Index.vue'], resolve),
+        meta: { title: '策略模式' },
+        children: [
+          {
+            path: '/strategy/demo1',
+            name: 'strategyDemo1',
+            component: (resolve) =>
+              require(['@/view/pages/strategy/Demo1.vue'], resolve),
+            meta: { title: '策略模式Demo1', nav: 'strategy' },
+          },
+        ],
+      },
+      {
+        path: '/subscribe-public',
+        name: 'subscribe-public',
+        redirect: '/subscribe-public/demo1',
+        component: (resolve) => require(['@/view/pages/subscribe-public/Index.vue'], resolve),
+        meta: { title: '策略模式' },
+        children: [
+          {
+            path: '/subscribe-public/demo1',
+            name: 'subscribe-publicDemo1',
+            component: (resolve) =>
+              require(['@/view/pages/subscribe-public/Demo1.vue'], resolve),
+            meta: { title: '策略模式Demo1', nav: 'subscribe-public' },
+          },
+        ],
+      },
     ],
   },
 ];
