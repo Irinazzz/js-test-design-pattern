@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h2>DEMO 2 ------ {{ name }}</h2>
-    <el-select v-model="value1" placeholder="请选择">
+    <h2>DEMO 2 -------- 用户名：{{ name }}</h2>
+    风险状态：
+    <el-select v-model="statusValue" placeholder="请选择">
       <el-option
-        v-for="item in options1"
+        v-for="item in statusOptions"
         :key="item.value"
         :label="item.label"
         :value="item.value"
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import dictionaries from '@/store/dictionaries';
+import cache from '@/store/cache';
 
 export default {
   name: 'HelloWorld',
@@ -23,18 +24,18 @@ export default {
   },
   data() {
     return {
-      options1: [],
-      value1: '1',
+      statusOptions: [],
+      statusValue: '1',
       name: '',
     };
   },
   async created() {
-    await this.init();
+    await this.getData();
   },
   methods: {
-    async init() {
-      this.options1 = await dictionaries.getOptions(1);
-      const { name } = await dictionaries.getUserInfo();
+    async getData() {
+      this.statusOptions = await cache.getDictionaryData(1);
+      const { name } = await cache.getUserInfo();
       this.name = name;
     },
   },

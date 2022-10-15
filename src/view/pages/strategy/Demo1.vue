@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'About',
   data() {
@@ -57,14 +56,13 @@ export default {
         message: '登录成功',
         type: 'success'
       });
-    }
-
+    },
   },
 };
 </script>
 <style scoped>
 .login {
-  margin: auto; 
+  margin: auto;
   width: 400px;
   text-align: center;
 }

@@ -4,16 +4,6 @@ import { BASE_URL } from '@/configs/env.js';
 Mock.mock(`${BASE_URL}/dictionaries`, {
   1: [
     {
-      label: 'telnet',
-      value: '1',
-    },
-    {
-      label: 'Sybase',
-      value: '10',
-    },
-  ],
-  2: [
-    {
       label: '超危',
       value: '1',
     },
@@ -22,7 +12,7 @@ Mock.mock(`${BASE_URL}/dictionaries`, {
       value: '2',
     },
   ],
-  3: [
+  2: [
     {
       label: '未处理',
       value: '1',

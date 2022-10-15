@@ -54,9 +54,9 @@ export default {
         value: this.ruleForm,
         strategy: strategies,
         rules: this.rule,
-      });
+      }); 
 
-      if(validate_result.state) {
+      if (validate_result.state) {
         this.$message({
           message: '登录成功',
           type: 'success'
@@ -67,13 +67,13 @@ export default {
           type: 'error'
         });
       }
-    }
+    },
   },
 };
 </script>
 <style scoped>
 .login {
-  margin: auto; 
+  margin: auto;
   width: 400px;
   text-align: center;
 }

@@ -1,17 +1,20 @@
 <template>
   <div>
-    <el-select v-model="value2" placeholder="请选择">
+    <h2>DEMO 1</h2>
+    告警等级：
+    <el-select v-model="level" placeholder="请选择">
       <el-option
-        v-for="item in options2"
+        v-for="item in levelOptions"
         :key="item.value"
         :label="item.label"
         :value="item.value"
       >
       </el-option>
     </el-select>
-    <el-select v-model="value3" placeholder="请选择" style="margin-left: 16px">
+    告警状态：
+    <el-select v-model="status" placeholder="请选择" style="margin-left: 16px">
       <el-option
-        v-for="item in options3"
+        v-for="item in statusOptions"
         :key="item.value"
         :label="item.label"
         :value="item.value"
@@ -22,7 +25,7 @@
 </template>
 
 <script>
-import dictionaries from '@/store/dictionaries';
+import cache from '@/store/cache';
 
 export default {
   name: 'About',
@@ -31,19 +34,21 @@ export default {
   },
   data() {
     return {
-      options2: [],
-      options3: [],
-      value2: '1',
-      value3: '1',
+      levelOptions: [],
+      statusOptions: [],
+      level: '1',
+      status: '1',
     };
   },
-  async created() {
-    await this.init();
+  created() {
+    this.getData();
+  },
+  mounted() {
   },
   methods: {
-    async init() {
-      this.options2 = await dictionaries.getOptions(2);
-      this.options3 = await dictionaries.getOptions(3);
+    async getData() {
+      this.levelOptions = await cache.getDictionaryData(1);
+      this.statusOptions = await cache.getDictionaryData(2);
     },
   },
 };

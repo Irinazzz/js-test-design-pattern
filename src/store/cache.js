@@ -4,7 +4,7 @@ import { getDictionaries, getUserInfo } from '@/services';
 /**
  * 用装饰器的示例
  */
-class Dictionaries {
+class CacheData {
   /**
    * 获取所有字典值数据
    */
@@ -27,44 +27,37 @@ class Dictionaries {
   }
 }
 
-const cacheMap = new Map();
 /**
  * 不用装饰器的示例
  */
-class DictionariesNormal {
-  /**
-   * 获取所有字典值数据
-   */
-  async getDictionaryData() {
-    let promise = cacheMap.get('dictionaries');
-    if (!promise) {
-      promise = getDictionaries();
+const cacheMap = new Map();
 
-      cacheMap.set('dictionaries', promise);
-      console.log('自己实现的 cacheMap', cacheMap);
-    }
-    return promise;
-  }
-
-  /**
-   * 获取其他数据
-   */
+class CacheDataNormal {
   async getUserInfo() {
     let promise = cacheMap.get('userInfo');
+
     if (!promise) {
-      const result = await getUserInfo();
+      promise = await getUserInfo();
       cacheMap.set('userInfo', result);
-      return result;
     }
+
     return promise;
-    // return cache(getUserInfo,'userInfo');
   }
 
-  async getOptions(key) {
-    const result = await this.getDictionaryData();
-    return result[key];
+  async getDictionaryData(key) {
+    const promise = cacheMap.get('dictionaries');
+
+    if (!promise) {
+      promise = await this.getDictionaryData();
+      cacheMap.set('dictionaries', promise);
+    }
+
+    return promise[key];
   }
+
 }
+
+// return cache(getUserInfo,'userInfo');
 
 // function cache(fn,key) {
 //   let promise = cacheMap.get(key);
@@ -76,6 +69,6 @@ class DictionariesNormal {
 //   return promise;
 // }
 
-// export default new Dictionaries();
-export default new DictionariesNormal();
+// export default new CacheData();
+export default new CacheDataNormal();
 
