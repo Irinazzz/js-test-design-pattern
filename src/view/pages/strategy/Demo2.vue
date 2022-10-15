@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import doValidate from './validator';
+import { strategies } from './strategies';
 
 export default {
   name: 'About',
@@ -26,30 +28,46 @@ export default {
         username: '',
         password: '',
         phoneNumber: '',
-      }
+      },
+      rule: [
+        {
+          key: 'username',
+          rule: 'isNotEmpty',
+          msg: '用户名不能为空',
+        },
+        {
+          key: 'password',
+          rule: 'minLenth:6',
+          msg: '密码最低为6位',
+        },
+        {
+          key: 'phoneNumber',
+          rule: 'isMobile',
+          msg: '手机号码格式不正确',
+        }
+      ]
     };
   },
   methods: {
     async onSubmit() {
-      if (this.ruleForm.username === '') {
-        alert('用户名不能为空');
-        return false;
-      }
-      if (this.ruleForm.password.length < 6) {
-        alert('密码长度不能少于6位');
-        return false;
-      }
-      if (!/^1[3|5|8][0-9]{9}$/.test(this.ruleForm.phoneNumber)) {
-        alert('手机号码格式不正确');
-        return false;
-      }
-      const res = await login(this.ruleForm);
-      this.$message({
-        message: '登录成功',
-        type: 'success'
+      const validate_result = doValidate({
+        value: this.ruleForm,
+        strategy: strategies,
+        rules: this.rule,
       });
-    }
 
+      if(validate_result.state) {
+        this.$message({
+          message: '登录成功',
+          type: 'success'
+        });
+      } else {
+        this.$message({
+          message: validate_result.msg,
+          type: 'error'
+        });
+      }
+    }
   },
 };
 </script>

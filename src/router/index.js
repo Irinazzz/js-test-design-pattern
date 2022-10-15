@@ -79,6 +79,13 @@ const routes = [
               require(['@/view/pages/strategy/Demo1.vue'], resolve),
             meta: { title: '策略模式Demo1', nav: 'strategy' },
           },
+          {
+            path: '/strategy/demo2',
+            name: 'strategyDemo2',
+            component: (resolve) =>
+              require(['@/view/pages/strategy/Demo2.vue'], resolve),
+            meta: { title: '策略模式Demo2', nav: 'strategy' },
+          },
         ],
       },
       {
