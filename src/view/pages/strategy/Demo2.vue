@@ -1,7 +1,7 @@
 <template>
   <div class="login">
-    
-    <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
+    <h3>使用策略模式</h3>
+    <el-form ref="ruleForm" :model="ruleForm" label-width="70px">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="ruleForm.username"></el-input>
       </el-form-item>
@@ -73,7 +73,7 @@ export default {
 </script>
 <style scoped>
 .login {
-  margin: 20px; 
+  margin: auto; 
   width: 400px;
   text-align: center;
 }
