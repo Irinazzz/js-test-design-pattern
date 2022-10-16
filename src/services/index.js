@@ -1,4 +1,4 @@
-import { get } from './http';
+import { get, post } from './http';
 
 export const getDictionaries = () => {
   console.log('request /dictionaries');
@@ -6,3 +6,4 @@ export const getDictionaries = () => {
 };
 
 export const getUserInfo = () => get(`/getUserInfo`);
+

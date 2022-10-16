@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>DEMO 2 -------- 用户名：{{ name }}</h2>
+    <h2>缓存示例2  {{ name }}</h2>
     风险状态：
     <el-select v-model="statusValue" placeholder="请选择">
       <el-option
@@ -34,9 +34,10 @@ export default {
   },
   methods: {
     async getData() {
-      this.statusOptions = await cache.getDictionaryData(1);
-      const { name } = await cache.getUserInfo();
-      this.name = name;
+      const options = await cache.getDictionaryData();
+      this.statusOptions = options[1];
+      // const { name } = await cache.getUserInfo();
+      // this.name = name;
     },
   },
 };

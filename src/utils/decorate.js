@@ -20,7 +20,6 @@
  * @returns
  */
 function decorate(handleDescription, entryArgs) {
-  console.log('参数：：', entryArgs);
   // 若装饰器未传参，则最后一个参数是 descriptor
   // 未传参的装饰器，例如 @log
   if (isDescriptor(entryArgs[entryArgs.length - 1])) {

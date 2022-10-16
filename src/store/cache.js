@@ -1,60 +1,114 @@
 import dataCache from '@/utils/dataCache';
 import { getDictionaries, getUserInfo } from '@/services';
 
+// 普通示例
+class NormalData {
+  async getDictionaryData() {
+    const res = await getDictionaries();
+    const newMap ={};
+
+    res.forEach((item) => {
+      if(!newMap[item.type]) {
+        newMap[item.type] = [];
+      }
+      newMap[item.type]?.push({
+        label: item.name,
+        value: item.id,
+      })
+    })
+
+    return newMap;
+  }
+}
+
+const cacheMap = new Map();
+
 /**
- * 用装饰器的示例
+ * 使用缓存的普通示例
  */
-class CacheData {
-  /**
-   * 获取所有字典值数据
-   */
-  @dataCache('dictionaries')
-  getDictionaryData() {
-    return getDictionaries();
-  }
+class CacheDataNormal {
+  async getDictionaryData() {
+    let promise = cacheMap.get('dictionaries');
+    const newMap ={};
 
-  /**
-   * 获取其他数据
-   */
-  @dataCache('userInfo')
-  getUserInfo() {
-    return getUserInfo();
-  }
-
-  async getOptions(key) {
-    const result = await this.getDictionaryData();
-    return result[key];
+    if (!promise) {
+      promise = await getDictionaries();
+      cacheMap.set('dictionaries', promise);
+    }
+    promise.forEach((item) => {
+      if(!newMap[item.type]) {
+        newMap[item.type] = [];
+      }
+      newMap[item.type]?.push({
+        label: item.name,
+        value: item.id,
+      })
+    })
+ 
+    return newMap;
   }
 }
 
 /**
- * 不用装饰器的示例
+ * 用装饰者模式的示例
  */
-const cacheMap = new Map();
+class CacheDataDecorate1 {
+  constructor(){
+    this.getDictionaryData = this.cacheDecorate(this.getDictionaryData, 'dictionaries');
+  }
+  
+  async getDictionaryData() {
+    const res = await getDictionaries();
+    const newMap ={};
 
-class CacheDataNormal {
-  async getUserInfo() {
-    let promise = cacheMap.get('userInfo');
+    res.forEach((item) => {
+      if(!newMap[item.type]) {
+        newMap[item.type] = [];
+      }
+      newMap[item.type]?.push({
+        label: item.name,
+        value: item.id,
+      })
+    })
 
-    if (!promise) {
-      promise = await getUserInfo();
-      cacheMap.set('userInfo', result);
-    }
-
-    return promise;
+    return newMap;
   }
 
-  async getDictionaryData(key) {
-    const promise = cacheMap.get('dictionaries');
+  cacheDecorate(fn, key) {
+    return (()=> {
+      let promise = cacheMap.get(key);
 
-    if (!promise) {
-      promise = await this.getDictionaryData();
-      cacheMap.set('dictionaries', promise);
-    }
+      if (!promise) {
+        promise = fn();
+        cacheMap.set(key, promise);
+      }
 
-    return promise[key];
+      return promise;
+    })
   }
+}
 
+/**
+ * 用装饰器的示例
+ */
+class CacheDataDecorate2 {
+  @dataCache('dictionaries')
+  async getDictionaryData() {
+    const res = await getDictionaries();
+    const newMap ={};
+
+    res.forEach((item) => {
+      if(!newMap[item.type]) {
+        newMap[item.type] = [];
+      }
+      newMap[item.type]?.push({
+        label: item.name,
+        value: item.id,
+      })
+    })
+
+    return newMap;
+  }
 }
 
 // return cache(getUserInfo,'userInfo');
@@ -69,6 +123,7 @@ class CacheDataNormal {
 //   return promise;
 // }
 
-// export default new CacheData();
-export default new CacheDataNormal();
-
+// export default new NormalData();
+// export default new CacheDataNormal();
+export default new CacheDataDecorate1();
+// export default new CacheDataDecorate2();

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>DEMO 1</h2>
+    <h2>缓存示例1</h2>
     告警等级：
     <el-select v-model="level" placeholder="请选择">
       <el-option
@@ -41,14 +41,16 @@ export default {
     };
   },
   created() {
-    this.getData();
+    
   },
-  mounted() {
+  async mounted() {
+    await this.getData();
   },
   methods: {
     async getData() {
-      this.levelOptions = await cache.getDictionaryData(1);
-      this.statusOptions = await cache.getDictionaryData(2);
+      const options = await cache.getDictionaryData();
+      this.levelOptions = options[1];
+      this.statusOptions = options[2];
     },
   },
 };

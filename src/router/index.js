@@ -21,24 +21,38 @@ const routes = [
       {
         path: '/decorate',
         name: 'decorate',
-        redirect: '/decorate/demo1',
+        redirect: '/decorate/cache-demo1',
         component: (resolve) =>
           require(['@/view/pages/decorate/Index.vue'], resolve),
         meta: { title: '装饰者模式' },
         children: [
           {
-            path: '/decorate/demo1',
-            name: 'decorateDemo1',
+            path: '/decorate/log-demo1',
+            name: 'decorateLogDemo1',
             component: (resolve) =>
-              require(['@/view/pages/decorate/Demo1.vue'], resolve),
-            meta: { title: '装饰者模式Demo1', nav: 'decorate' },
+              require(['@/view/pages/decorate/LogDemo1.vue'], resolve),
+            meta: { title: '装饰者模式LogDemo1', nav: 'decorate' },
           },
           {
-            path: '/decorate/demo2',
-            name: 'decorateDemo2',
+            path: '/decorate/log-demo1',
+            name: 'decorateLogDemo1',
             component: (resolve) =>
-              require(['@/view/pages/decorate/Demo2.vue'], resolve),
-            meta: { title: '装饰者模式Demo2', nav: 'decorate' },
+              require(['@/view/pages/decorate/LogDemo1.vue'], resolve),
+            meta: { title: '装饰者模式LogDemo1', nav: 'decorate' },
+          },
+          {
+            path: '/decorate/cache-demo1',
+            name: 'decorateCacheDemo1',
+            component: (resolve) =>
+              require(['@/view/pages/decorate/CacheDemo1.vue'], resolve),
+            meta: { title: '装饰者模式CacheDemo1', nav: 'decorate' },
+          },
+          {
+            path: '/decorate/cache-demo2',
+            name: 'decorateCacheDemo2',
+            component: (resolve) =>
+              require(['@/view/pages/decorate/CacheDemo2.vue'], resolve),
+            meta: { title: '装饰者模式CacheDemo2', nav: 'decorate' },
           },
         ],
       },
@@ -93,14 +107,14 @@ const routes = [
         name: 'subscribe-public',
         redirect: '/subscribe-public/demo1',
         component: (resolve) => require(['@/view/pages/subscribe-public/Index.vue'], resolve),
-        meta: { title: '策略模式' },
+        meta: { title: '发布订阅模式' },
         children: [
           {
             path: '/subscribe-public/demo1',
             name: 'subscribe-publicDemo1',
             component: (resolve) =>
               require(['@/view/pages/subscribe-public/Demo1.vue'], resolve),
-            meta: { title: '策略模式Demo1', nav: 'subscribe-public' },
+            meta: { title: '发布订阅模式Demo1', nav: 'subscribe-public' },
           },
         ],
       },
