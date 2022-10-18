@@ -32,17 +32,17 @@ export default {
       rule: [
         {
           key: 'username',
-          rule: 'isNotEmpty',
+          type: 'isNotEmpty',
           msg: '用户名不能为空',
         },
         {
           key: 'password',
-          rule: 'minLenth:6',
+          type: 'minLenth:6',
           msg: '密码最低为6位',
         },
         {
           key: 'phoneNumber',
-          rule: 'isMobile',
+          type: 'isMobile',
           msg: '手机号码格式不正确',
         }
       ]
@@ -52,7 +52,6 @@ export default {
     async onSubmit() {
       const validate_result = doValidate({
         value: this.ruleForm,
-        strategy: strategies,
         rules: this.rule,
       }); 
 
