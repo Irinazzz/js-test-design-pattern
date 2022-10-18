@@ -1,6 +1,6 @@
 import { ref } from '@vue/composition-api';
 
-function dealTemplate(asyncFunction) {
+function dealRequest(asyncFunction) {
   const loading = ref(null);
   const data = ref(null);
 
@@ -17,8 +17,9 @@ function dealTemplate(asyncFunction) {
       loading.value = false;
     }
   };
-
+  
+  // 执行固有步骤，导出执行函数和返回参数
   return { execute, loading, data };
 }
 
-export default dealTemplate;
+export default dealRequest;

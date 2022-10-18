@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import dealTemplate from "@/utils/loading.js";
+import dealRequest from "@/utils/dealRequest.js";
 
 export default {
   setup() {
@@ -19,7 +19,7 @@ export default {
       });
     }
 
-    const { execute: handleClick, loading, data } = dealTemplate(mockData);
+    const { execute: handleClick, loading, data } = dealRequest(mockData);
 
     return {
       handleClick,
