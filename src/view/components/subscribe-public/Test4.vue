@@ -19,7 +19,7 @@ export default {
     }
   },
   destroyed() {
-    EventBus.off('tenant');
+    EventBus.off('tenant', (tenant) => this.setData(tenant));
   }
 }
 </script>

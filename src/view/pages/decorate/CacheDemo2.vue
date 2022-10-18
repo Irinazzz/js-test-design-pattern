@@ -31,14 +31,18 @@ export default {
   },
   async created() {
     await this.getData();
+    await this.getName();
   },
   methods: {
     async getData() {
       const options = await cache.getDictionaryData();
       this.statusOptions = options[1];
-      // const { name } = await cache.getUserInfo();
-      // this.name = name;
     },
+
+    async getName() {
+      const { name } = await cache.getUserInfo();
+      this.name = name;
+    }
   },
 };
 </script>

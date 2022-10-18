@@ -4,20 +4,7 @@ import { getDictionaries, getUserInfo } from '@/services';
 // 普通示例
 class NormalData {
   async getDictionaryData() {
-    const res = await getDictionaries();
-    const newMap ={};
-
-    res.forEach((item) => {
-      if(!newMap[item.type]) {
-        newMap[item.type] = [];
-      }
-      newMap[item.type]?.push({
-        label: item.name,
-        value: item.id,
-      })
-    })
-
-    return newMap;
+    return getDictionaries();
   }
 }
 
@@ -29,23 +16,13 @@ const cacheMap = new Map();
 class CacheDataNormal {
   async getDictionaryData() {
     let promise = cacheMap.get('dictionaries');
-    const newMap ={};
 
     if (!promise) {
-      promise = await getDictionaries();
+      promise = getDictionaries();
       cacheMap.set('dictionaries', promise);
     }
-    promise.forEach((item) => {
-      if(!newMap[item.type]) {
-        newMap[item.type] = [];
-      }
-      newMap[item.type]?.push({
-        label: item.name,
-        value: item.id,
-      })
-    })
  
-    return newMap;
+    return promise;
   }
 }
 
@@ -53,25 +30,12 @@ class CacheDataNormal {
  * 用装饰者模式的示例
  */
 class CacheDataDecorate1 {
-  constructor(){
+  constructor() {
     this.getDictionaryData = this.cacheDecorate(this.getDictionaryData, 'dictionaries');
   }
   
   async getDictionaryData() {
-    const res = await getDictionaries();
-    const newMap ={};
-
-    res.forEach((item) => {
-      if(!newMap[item.type]) {
-        newMap[item.type] = [];
-      }
-      newMap[item.type]?.push({
-        label: item.name,
-        value: item.id,
-      })
-    })
-
-    return newMap;
+    return getDictionaries();
   }
 
   cacheDecorate(fn, key) {
@@ -94,36 +58,16 @@ class CacheDataDecorate1 {
 class CacheDataDecorate2 {
   @dataCache('dictionaries')
   async getDictionaryData() {
-    const res = await getDictionaries();
-    const newMap ={};
+    return getDictionaries();
+  }
 
-    res.forEach((item) => {
-      if(!newMap[item.type]) {
-        newMap[item.type] = [];
-      }
-      newMap[item.type]?.push({
-        label: item.name,
-        value: item.id,
-      })
-    })
-
-    return newMap;
+  @dataCache('userInfo')
+  async getUserInfo() {
+    return getUserInfo();
   }
 }
 
-// return cache(getUserInfo,'userInfo');
-
-// function cache(fn,key) {
-//   let promise = cacheMap.get(key);
-//   if (!promise) {
-//     promise = fn();
-//     cacheMap.set(key, promise);
-//     console.log('cacheMap fn', cacheMap);
-//   }
-//   return promise;
-// }
-
 // export default new NormalData();
 // export default new CacheDataNormal();
-export default new CacheDataDecorate1();
-// export default new CacheDataDecorate2();
+// export default new CacheDataDecorate1();
+export default new CacheDataDecorate2();

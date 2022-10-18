@@ -28,6 +28,8 @@ function handleDataCache(target, name, descriptor, [key]) {
   return descriptor;
 }
 
+// 装饰器方法会存在默认参数
+
 export default function dataCache(...args) {
   return decorate(handleDataCache, args);
 }
