@@ -116,6 +116,13 @@ const routes = [
               require(['@/view/pages/subscribe-public/Demo1.vue'], resolve),
             meta: { title: '发布订阅模式Demo1', nav: 'subscribe-public' },
           },
+          {
+            path: '/subscribe-public/demo2',
+            name: 'subscribe-publicDemo2',
+            component: (resolve) =>
+              require(['@/view/pages/subscribe-public/Demo2.vue'], resolve),
+            meta: { title: '发布订阅模式Demo2', nav: 'subscribe-public' },
+          },
         ],
       },
     ],

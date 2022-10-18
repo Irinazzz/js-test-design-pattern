@@ -2,6 +2,7 @@
   <div>
     <div class="nav">
       <router-link to="/subscribe-public/demo1">DEMO1</router-link>
+      <router-link to="/subscribe-public/demo2">DEMO2</router-link>
     </div>
     <router-view></router-view>
   </div>
